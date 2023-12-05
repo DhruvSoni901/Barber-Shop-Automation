@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+
+.navbar-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333; /* Your text color */
+}
+.link-text{
+    font-family: 'Play', sans-serif;
+    font-size: 20px;
+    color:#000000 ;
+}
+.full-height{
+    min-height: 100vh;
+}
+.full-width{
+    min-width: 100%;
+}
+
+.main-container{
+    background-image: url('../Main.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #fff; 
+}
+
+.login_bg{
+    width: 100%;
+  max-width: 700px;
+  background: #fff;
+  margin: 7% auto;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inventory_list{
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.slot {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    cursor: pointer;
+}
+  
+.slot.selected {
+    background-color: #00ff11;
+    color: #000000;
+}
+  

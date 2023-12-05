@@ -1,0 +1,166 @@
+import React, { useState, useEffect, useRef} from "react";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+
+const AdminDashboard = () => {
+    const [appointments, setAppointments] = useState([]);
+
+    const [inventory, setInventory] = useState({
+      scissors:0,
+      comb:0,
+      cloth:0,
+      shavingcream:0,
+      powder:0,
+      blade:0,
+    })
+
+    const inventoryRef = useRef({
+      scissors:0,
+      comb:0,
+      cloth:0,
+      shavingcream:0,
+      powder:0,
+      blade:0,
+    })
+
+    useEffect(() => {
+      // Fetch appointments and student details from backend.
+      async function fetchData() {
+        try {
+          const response = await fetch('http://localhost:9000/admin/appointments');
+          console.log(response);
+          if (response.ok) {
+            const data = await response.json();
+            setAppointments(data);
+          } else {
+            console.error('Failed to fetch appointments');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+  
+      fetchData();
+    }, []);
+
+    //fetch inventory 
+    useEffect(() => {
+      async function fetchInventory() {
+        try {
+          const response = await fetch('http://localhost:9000/admin/inventory');
+          if (response.ok) {
+            const data = await response.json();
+            setInventory(data);
+            inventoryRef.current = data;
+          } else {
+            console.error('Failed to fetch inventory details');
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+
+      fetchInventory();
+    }, []);
+
+    const handleApprove = async (appointmentId) =>{
+      try {
+        const response = await fetch(`http://localhost:9000/admin/appointment/approve/${appointmentId}`,{
+          method: 'PUT',
+        })
+        if(response.ok){
+          setAppointments((prevAppointments) => prevAppointments.map((appointment) => appointment._id === appointmentId ? {...appointment, status:'Approved'} : appointment
+          )
+          );
+        }else{
+          console.error('Failed to approve appointment');
+        }
+
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    const handleDecline = async (appointmentId) =>{
+      try {
+        const response = await fetch(`http://localhost:9000/admin/appointment/decline/${appointmentId}`, {
+          method: 'DELETE',
+        })
+        
+        if(response.ok){
+          setAppointments((prevAppointments)=> prevAppointments.filter((appointment)=> appointment._id !== appointmentId))
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    const handleInventoryUpdate = async (event) => {
+      event.preventDefault();
+      try {
+        const response = await fetch('http://localhost:9000/admin/update-inventory', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(inventoryRef.current),
+        });
+  
+        if (response.ok) {
+          console.log('Inventory updated successfully');
+        } else {
+          console.error('Failed to update inventory');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    const handleInventoryChange = (event, key) => {
+      const value = parseInt(event.target.value, 10);
+      setInventory((prevInventory) => ({ ...prevInventory, [key]: value }));
+      inventoryRef.current[key] = value;
+    };
+  
+    return (
+      <Container className="mb-3">
+        <h1>Slot Status</h1>
+        <Row>
+          <Col md={6} style={{ maxHeight: '717px', overflowY: 'auto' }}>
+            {appointments.map((appointment) => (
+              <Card key={appointment._id} className="mb-3">
+                <Card.Body>
+                  <Card.Title>Slot: {appointment.selectedSlot}</Card.Title>
+                  <Card.Text>
+                  <p>Roll Number: {appointment.rollno}</p>
+                  <p>Contact: {appointment.contact}</p>
+                  <p>Service Type: {appointment.serviceType}</p>
+                  </Card.Text>
+                  <Button variant="success" onClick={() => handleApprove(appointment._id)}>Approve</Button>{' '}
+                  <Button variant="danger" onClick={() => handleDecline(appointment._id)}>Decline</Button>
+                </Card.Body>
+              </Card>
+            ))}
+          </Col>
+          <Col md={5} className="inventory_list mb-3">
+            <h4>Inventory</h4>
+            {/* simple form using input group easy 4 inputs max */}
+            <Form onSubmit={handleInventoryUpdate}>
+            {Object.entries(inventory).map(([key, value]) => (
+              <Form.Group key={key} className="mb-2">
+                <Form.Label>{key.charAt(0).toUpperCase() + key.slice(1)}</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={value}
+                  onChange={(event) => handleInventoryChange(event, key)}
+                />
+              </Form.Group>
+            ))}
+              <Button variant="outline-warning" type="submit">Update</Button>
+            </Form>
+
+          </Col>
+        </Row>
+      </Container>
+    );
+  };
+export default AdminDashboard;
