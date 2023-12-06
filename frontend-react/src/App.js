@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import 'animate.css';
-import Navbar from './components/Navbar';
+
 import Footer from './components/Footer';
 import Home from './components/Home';
 import Student_login from './components/student_login';
@@ -16,7 +16,7 @@ function App() {
     <Router>
       <div className="App">
         {/* Navbar */}
-        <Navbar />
+        
 
         {/*Main Content*/}
           {/* Routing */}

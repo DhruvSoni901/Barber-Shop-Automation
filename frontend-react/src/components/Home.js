@@ -1,11 +1,13 @@
 import React from "react";
 import { useState } from "react";
+import Navbar from "./Navbar";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'animate.css';
 import { Button, Col, Row, Container, Offcanvas } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { BsInfoCircle } from "react-icons/bs";
 import Appointment_drop from "./appoinments_drop";
+
 
 function Home(){
   const navigate = useNavigate();
@@ -22,6 +24,8 @@ function Home(){
   const handleClose = () => setShow(false);
 
     return(
+        <>
+        <Navbar />
         <Container fluid className="d-flex flex-column justify-content-center align-items-center full-height main-container">
           <Row className="justify-content-end align-self-start full-width mt-0">
             <Col md={1} className="px-0" style={{width:"2.4%"}}><Button onClick={handleShow} variant="secondary"><BsInfoCircle /></Button></Col>
@@ -55,6 +59,7 @@ function Home(){
             
           {showAppointment && <Appointment_drop />}
         </Container>
+        </>
     )
 }
 export default Home;

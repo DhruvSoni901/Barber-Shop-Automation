@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef} from "react";
-import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Modal, Row, Navbar, Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { IoExitOutline } from "react-icons/io5";
 
 const AdminDashboard = () => {
     const [appointments, setAppointments] = useState([]);
     const [show , setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const navigate = useNavigate();
 
     const [inventory, setInventory] = useState({
       scissors:0,
@@ -123,8 +126,24 @@ const AdminDashboard = () => {
       setInventory((prevInventory) => ({ ...prevInventory, [key]: value }));
       inventoryRef.current[key] = value;
     };
+
+    const handleLogout = async () =>{
+        navigate('/admin_login');
+    }
   
     return (
+      <>
+      <Navbar expand="lg" bg="secondary" className="mb-3">
+                <Container fluid>
+                    <Navbar.Brand className="d-flex justify-content-center">Admin Dashboard</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="navbarContent" />
+                    <Navbar.Collapse id="navbarContent">
+                        <Nav className="ms-auto mb-2 mb-lg-0">
+                            <Button variant="outline-light" onClick={handleLogout}><IoExitOutline/></Button>
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
       <Container className="mb-3 full-height">
         
         <Row className="justify-content-center">
@@ -174,6 +193,7 @@ const AdminDashboard = () => {
           </Col>
         </Row>
       </Container>
+      </>
     );
   };
 export default AdminDashboard;

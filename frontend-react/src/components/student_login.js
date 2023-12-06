@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Form, Button, FloatingLabel, FormControl, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import NavigateReturn from "./NavbarReturn";
 
 
 function Student_login(){
@@ -34,6 +35,8 @@ function Student_login(){
     };
 
     return(
+        <>
+        <NavigateReturn/>
         <Container fluid className="d-flex flex-column justify-content-center   align-items-center full-height">
             <Row className="login_bg">
             <h1>Student Login</h1>
@@ -63,6 +66,7 @@ function Student_login(){
             </Form>
             </Row>
         </Container>
+        </>
     )
 }
 export default Student_login;
