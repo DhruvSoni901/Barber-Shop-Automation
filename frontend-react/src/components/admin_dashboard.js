@@ -1,8 +1,11 @@
 import React, { useState, useEffect, useRef} from "react";
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap";
 
 const AdminDashboard = () => {
     const [appointments, setAppointments] = useState([]);
+    const [show , setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     const [inventory, setInventory] = useState({
       scissors:0,
@@ -123,10 +126,10 @@ const AdminDashboard = () => {
   
     return (
       <Container className="mb-3">
-        <h1>Slot Status</h1>
-        <Row>
-          <Col md={6} style={{ maxHeight: '717px', overflowY: 'auto' }}>
-            {appointments.map((appointment) => (
+        
+        <Row className="justify-content-center">
+          <Col md={7} className="ms-7 mt-4" style={{ maxHeight: '717px', overflowY: 'auto' }}>
+            <h1>Slot Status</h1>{appointments.map((appointment) => (
               <Card key={appointment._id} className="mb-3">
                 <Card.Body>
                   <Card.Title>Slot: {appointment.selectedSlot}</Card.Title>
@@ -141,23 +144,28 @@ const AdminDashboard = () => {
               </Card>
             ))}
           </Col>
-          <Col md={5} className="inventory_list mb-3">
-            <h4>Inventory</h4>
-            {/* simple form using input group easy 4 inputs max */}
-            <Form onSubmit={handleInventoryUpdate}>
-            {Object.entries(inventory).map(([key, value]) => (
-              <Form.Group key={key} className="mb-2">
-                <Form.Label>{key.charAt(0).toUpperCase() + key.slice(1)}</Form.Label>
-                <Form.Control
-                  type="number"
-                  value={value}
-                  onChange={(event) => handleInventoryChange(event, key)}
-                />
-              </Form.Group>
-            ))}
-              <Button variant="outline-warning" type="submit">Update</Button>
-            </Form>
-
+          <Col md={2} className="inventory_list mb-3 mt-4">
+          <Button variant="warning" onClick={handleShow} >View Inventory</Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Inventory</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  <Form onSubmit={handleInventoryUpdate}>
+                  {Object.entries(inventory).map(([key, value]) => (
+                    <Form.Group key={key} className="mb-2">
+                      <Form.Label>{key.charAt(0).toUpperCase() + key.slice(1)}</Form.Label>
+                      <Form.Control
+                        type="number"
+                        value={value}
+                        onChange={(event) => handleInventoryChange(event, key)}
+                      />
+                    </Form.Group>
+                  ))}
+                    <Button variant="outline-warning" type="submit">Update</Button>
+                  </Form>
+                </Modal.Body>
+            </Modal>
           </Col>
         </Row>
       </Container>

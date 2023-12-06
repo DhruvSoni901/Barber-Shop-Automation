@@ -60,7 +60,7 @@ const AddAppointment = () =>{
         
     }
     return(
-        <Container fluid className="d-flex justify-content-center mt-3 ">
+        <Container fluid className="d-flex justify-content-center mt-3 short-height">
             <Row >
             <Col md={10}>
                 <Card className="mb-3">
