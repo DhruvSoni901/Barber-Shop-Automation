@@ -125,11 +125,15 @@ const AdminDashboard = () => {
     };
   
     return (
-      <Container className="mb-3">
+      <Container className="mb-3 full-height">
         
         <Row className="justify-content-center">
           <Col md={7} className="ms-7 mt-4" style={{ maxHeight: '717px', overflowY: 'auto' }}>
-            <h1>Slot Status</h1>{appointments.map((appointment) => (
+            <h1>Slot Status</h1>
+            {appointments.length === 0 ? (
+              <p>No Active Appointments</p>
+            ):(
+              appointments.map((appointment) => (
               <Card key={appointment._id} className="mb-3">
                 <Card.Body>
                   <Card.Title>Slot: {appointment.selectedSlot}</Card.Title>
@@ -142,7 +146,8 @@ const AdminDashboard = () => {
                   <Button variant="danger" onClick={() => handleDecline(appointment._id)}>Decline</Button>
                 </Card.Body>
               </Card>
-            ))}
+            ))
+          )}
           </Col>
           <Col md={2} className="inventory_list mb-3 mt-4">
           <Button variant="warning" onClick={handleShow} >View Inventory</Button>

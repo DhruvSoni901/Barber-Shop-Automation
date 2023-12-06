@@ -1,6 +1,7 @@
 import {Button, Alert, Card, Col, Form, Row, Container, FormLabel, FormGroup, FormControl} from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Slots from "./slots";
+import { useNavigate } from "react-router-dom";
 const AddAppointment = () =>{
     
     const [firstName, setFirstName] = useState("");
@@ -10,6 +11,23 @@ const AddAppointment = () =>{
     const [showSlot, setShowSlots] = useState(false); 
     const [successMessage, setSuccessMessage] = useState(false);
     const [failureMessage, setFailureMessage] = useState(false);
+
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+        const handleBeforeUnload = (event) => {
+          const confirmationMessage = 'Changes you made may not be saved. Are you sure you want to leave?';
+          event.returnValue = confirmationMessage;
+          return confirmationMessage;
+        };
+    
+        window.addEventListener('beforeunload', handleBeforeUnload);
+    
+        return () => {
+          window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+      }, []
+    );
     
     const handleFirstName = (event) =>{
         setFirstName(event.target.value);
@@ -50,6 +68,7 @@ const AddAppointment = () =>{
                 const data = await response.json();
                 setSuccessMessage('Form Submitted Successfully')
                 console.log(data.message);
+                
             }else{
                 setFailureMessage('Form submission failed');
                 console.error('Form Submission Failed');
@@ -58,6 +77,9 @@ const AddAppointment = () =>{
             console.error(error);
         }
         
+    }
+    const handleBack = async () =>{
+        navigate("/student_dashboard");
     }
     return(
         <Container fluid className="d-flex justify-content-center mt-3 short-height">
@@ -124,7 +146,8 @@ const AddAppointment = () =>{
                                     <FormControl type="text" readOnly value={selectedSlot}/>
                                 </FormGroup>
                             )}
-                            <Button variant="primary" type="submit">Submit</Button>
+                            <Button variant="success" type="submit">Submit</Button>{" "}
+                            <Button variant= "outline-info" onClick={handleBack}>Go to Dashboard</Button>
                         </Form>
                     </Card.Body>
                 </Card>

@@ -22,6 +22,7 @@ function Admin_login(){
                 console.log(data.message);
                 navigate('/admin_dashboard'); 
               } else {
+                alert('Invalid Login Credentials')
                 console.error('Login failed');
                 }
         } catch (error) {
