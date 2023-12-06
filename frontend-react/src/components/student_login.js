@@ -24,6 +24,7 @@ function Student_login(){
                 console.log(data);  
                 navigate('/student_dashboard');
             }else{
+                alert('Invalid Login Credentials');
                 console.error('Login Failed');
             }
         } catch (error) {
