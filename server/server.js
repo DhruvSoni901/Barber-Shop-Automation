@@ -45,10 +45,6 @@ app.use('/appointment',appointmentRoute);
 //---------------admin routes
 app.use('/admin',adminRoutes);
 
-app.use(express.static(path.join(__dirname,"./frontend-react/build")));
-app.get("*", (req,res) =>{
-  res.sendFile(path.join(__dirname, "./frontend-react/build/index.html"))
-})
 
 //------------------------------------connection-----------------------------
 const PORT = process.env.PORT || 9000;

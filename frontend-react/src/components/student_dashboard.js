@@ -86,7 +86,7 @@ const StudentDashboard = () =>{
                 </Container>
             </Navbar>
 
-            <Container>
+            <Container className="short-height">
                 <Row>
                     <h3>Pending Appointments</h3>
                 {pendingAppointments.length === 0 ? (
