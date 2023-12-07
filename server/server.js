@@ -13,7 +13,7 @@ app.use(express.json());
 // const allowedOrigins = ['http://localhost:3000']; // Add your frontend origin(s).
 app.use(
   cors({
-    origin: 'https://barber-shop-automation-8hxq-dhruv-sonis-projects.vercel.app',
+    origin: 'http://localhost:3000',
     credentials: true,
     exposedHeaders: ['set-cookie'],
   })
@@ -44,6 +44,11 @@ app.use('/appointment',appointmentRoute);
 
 //---------------admin routes
 app.use('/admin',adminRoutes);
+
+app.use(express.static(path.join(__dirname,"./frontend-react/build")));
+app.get("*", (req,res) =>{
+  res.sendFile(path.join(__dirname, "./frontend-react/build/index.html"))
+})
 
 //------------------------------------connection-----------------------------
 const PORT = process.env.PORT || 9000;
