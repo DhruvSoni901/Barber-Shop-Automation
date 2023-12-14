@@ -123,8 +123,9 @@ const AdminDashboard = () => {
 
     const handleInventoryChange = (event, key) => {
       const value = parseInt(event.target.value, 10);
-      setInventory((prevInventory) => ({ ...prevInventory, [key]: value }));
-      inventoryRef.current[key] = value;
+      const nonNegativeValue = Math.max(0, value);
+      setInventory((prevInventory) => ({ ...prevInventory, [key]: nonNegativeValue }));
+      inventoryRef.current[key] = nonNegativeValue;
     };
 
     const handleLogout = async () =>{
