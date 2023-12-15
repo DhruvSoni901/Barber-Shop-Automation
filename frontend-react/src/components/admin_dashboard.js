@@ -32,7 +32,7 @@ const AdminDashboard = () => {
       // Fetch appointments and student details from backend.
       async function fetchData() {
         try {
-          const response = await fetch('http://localhost:9000/admin/appointments');
+          const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/admin/appointments');
           console.log(response);
           if (response.ok) {
             const data = await response.json();
@@ -52,7 +52,7 @@ const AdminDashboard = () => {
     useEffect(() => {
       async function fetchInventory() {
         try {
-          const response = await fetch('http://localhost:9000/admin/inventory');
+          const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/admin/inventory');
           if (response.ok) {
             const data = await response.json();
             setInventory(data);
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
 
     const handleApprove = async (appointmentId) =>{
       try {
-        const response = await fetch(`http://localhost:9000/admin/appointment/approve/${appointmentId}`,{
+        const response = await fetch(`https://barber-shop-automation-m9r6.onrender.com/admin/appointment/approve/${appointmentId}`,{
           method: 'PUT',
         })
         if(response.ok){
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
 
     const handleDecline = async (appointmentId) =>{
       try {
-        const response = await fetch(`http://localhost:9000/admin/appointment/decline/${appointmentId}`, {
+        const response = await fetch(`https://barber-shop-automation-m9r6.onrender.com/admin/appointment/decline/${appointmentId}`, {
           method: 'DELETE',
         })
         
@@ -103,7 +103,7 @@ const AdminDashboard = () => {
     const handleInventoryUpdate = async (event) => {
       event.preventDefault();
       try {
-        const response = await fetch('http://localhost:9000/admin/update-inventory', {
+        const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/admin/update-inventory', {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ const AddAppointment = () =>{
         event.preventDefault();
         
         try {
-            const response = await fetch('http://localhost:9000/appointment/student_form',{
+            const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/appointment/student_form',{
                 method:'POST',
                 headers:{ 'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -57,13 +57,11 @@ const AddAppointment = () =>{
                     lastName,
                     serviceType,
                     selectedSlot,
-                 //yaha bas student bhi lo, becuse jo appointment me bhej rhe hai from server
-                 //usme studeny bhi jaega
+                 
                 }),
                 credentials: 'include',
             })
-            // console.log("fetched response:- ",response.json());
-                //something wrong with fetching
+        
             if(response.ok){
                 const data = await response.json();
                 setSuccessMessage('Form Submitted Successfully')
@@ -99,7 +97,7 @@ const AddAppointment = () =>{
                                         required
                                         value={firstName}
                                         onChange={handleFirstName}
-                                        // onChange={(event) => setFormData({...formData , firstName:event.target.value})}
+                                        
                                     />
                                 </Form.Group>
                                 <Form.Group as={Col}>
@@ -109,7 +107,7 @@ const AddAppointment = () =>{
                                         required
                                         value={lastName}
                                         onChange={handleLastName}
-                                        // onChange={(event) => setFormData({...formData , lastName:event.target.value})}
+                                        
                                     />
                                 </Form.Group>
                             </Row>

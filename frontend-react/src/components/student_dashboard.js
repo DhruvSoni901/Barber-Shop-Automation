@@ -15,7 +15,7 @@ const StudentDashboard = () =>{
         async function fetchData(){
             try{
                 console.log("hi");
-                const response = await fetch("http://localhost:9000/student-section/student-appointment",{
+                const response = await fetch("https://barber-shop-automation-m9r6.onrender.com/student-section/student-appointment",{
                     method:"GET",
                     credentials: 'include',
                 })
@@ -42,7 +42,7 @@ const StudentDashboard = () =>{
       );
     const handleAptDecline = async (appointmentId) =>{
       try {
-        const response = await fetch(`http://localhost:9000/student-section/delete/${appointmentId}`, {
+        const response = await fetch(`https://barber-shop-automation-m9r6.onrender.com/student-section/delete/${appointmentId}`, {
           method: 'DELETE',
         })
         if(response.ok){
@@ -54,7 +54,7 @@ const StudentDashboard = () =>{
     }
     const handleLogout = async () =>{
       try {
-        const response = await fetch("http://localhost:9000/student-section/logout",{
+        const response = await fetch("https://barber-shop-automation-m9r6.onrender.com/student-section/logout",{
           method: 'POST',
           credentials: 'include',
         });

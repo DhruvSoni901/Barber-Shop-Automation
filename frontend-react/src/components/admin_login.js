@@ -10,7 +10,7 @@ function Admin_login(){
     const handleAdminSubmit = async (event) =>{
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:9000/admin/admin_login', {
+            const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/admin/admin_login', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',

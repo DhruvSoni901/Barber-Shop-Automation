@@ -12,7 +12,7 @@ function Student_login(){
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await fetch('http://localhost:9000/student-section/student_login',{
+            const response = await fetch('https://barber-shop-automation-m9r6.onrender.com/student-section/student_login',{
                 method:'POST',
                 headers: {
                     'Content-Type': 'application/json'
