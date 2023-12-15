@@ -13,7 +13,7 @@ app.use(express.json());
 // const allowedOrigins = ['http://localhost:3000']; // Add your frontend origin(s).
 app.use(
   cors({
-    origin: 'https://barber-shop-automation.vercel.app',
+    origin: ['https://barber-shop-automation.vercel.app'],
     credentials: true,
     exposedHeaders: ['set-cookie'],
   })
